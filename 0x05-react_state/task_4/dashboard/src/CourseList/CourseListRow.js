@@ -8,7 +8,7 @@ function CourseListRow({ isHeader, textFirstCell, textSecondCell }) {
   const rowStyle = { backgroundColor: "#f5f5f5ab" };
   const selected_style = isHeader ? headerStyle : rowStyle;
 
-  const handleCheckChange = (e) => {
+  const handleCheckChange = () => {
     setChecked(!checked);
   };
 
@@ -28,9 +28,8 @@ function CourseListRow({ isHeader, textFirstCell, textSecondCell }) {
       ) : (
         <>
           <td className={css(rowsStyles.td)}>
-            <input type="checkbox" onChange={handleCheckChange} />
-            {textFirstCell}
-          </td>
+          <input type="checkbox" onChange={handleCheckChange}/>
+            {textFirstCell}</td>
           <td className={css(rowsStyles.td)}>{textSecondCell}</td>
         </>
       )}

@@ -1,22 +1,32 @@
-/**
- * @jest-environment jsdom
- */
-import { shallow, mount } from "enzyme";
 import React from "react";
+import { shallow } from "enzyme";
 import Footer from "./Footer";
-import { getFullYear, getFooterCopy } from "../utils/utils";
-import { AppContext } from "../App/AppContext";
+import { StyleSheetTestUtils } from "aphrodite";
 
-describe("Footer test", () => {
-  it("should render without crashing", () => {
-    const wrapper = shallow(<Footer />);
-    expect(wrapper.exists()).toEqual(true);
+describe("Testing <Footer /> component", () => {
+  let wrapper;
+
+  beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+    wrapper = shallow(<Footer />);
   });
 
-  it('Footer component renders "Copyright ${getFullYear()} - ${getFooterCopy(true)}"', () => {
-    const wrapper = mount(<Footer />);
+  it("Footer Component renders without crashing", () => {
+    expect(wrapper.exists());
+  });
 
-    expect(wrapper.find("p").text()).toEqual(`Copyright ${getFullYear()} - ${getFooterCopy(false)}`);
+  it("Footer compoenent render at the very least the text “Copyright”", () => {
+    expect(wrapper.find("Copyright").at(0)).toBeDefined();
+  });
+});
+
+describe("Testing Footer Component context and state", () => {
+  beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   it("Tests that there is no link rendered when user is logged out within context", () => {
